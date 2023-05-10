@@ -1,14 +1,18 @@
 
-//import java.util.Scanner;
-//import java.util.HashSet;
+import java.util.Scanner;
+import java.util.HashSet;
 import javax.swing.*;
 
+
 import java.io.File;
-//import java.io.FileNotFoundException;
+import java.io.FileNotFoundException;
 
 public class UserFile {
+	
+	
+	private HashSet<String> badWords =  new HashSet<>(); 
 		
-	public File getInputFileNameFromUser(){
+	public File getInputFileNameFromUser() throws FileNotFoundException{
 		
         JFileChooser fileDialog = new JFileChooser();
         fileDialog.setDialogTitle("Select File for Input");
@@ -18,5 +22,29 @@ public class UserFile {
         else
            return fileDialog.getSelectedFile();
      }
+	
+	public HashSet<String> getNoMatchStrings(Scanner inputFile, Words userWords) throws NullPointerException{
+		
+		String nowWord;
+		
+		
+		while(inputFile.hasNext()) {
+			
+			nowWord = inputFile.next();
+			
+			nowWord = nowWord.toLowerCase();
+			
+			if(!userWords.hashSet.contains(nowWord)) //Checks if the input string is in the hashSet
+			
+				badWords.add(nowWord);
+
+		}
+		
+		return badWords;
+		
+	}
+	
+	
+	
 
 }

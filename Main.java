@@ -1,24 +1,35 @@
 import java.io.FileNotFoundException;
+//import java.io.File;
 import java.util.*;
 
-public class Main {
+public class Main extends UserFile{
 	
 	public static void main(String[] args){
 		
-		Words words = null; //Initializing null variable
+		Words userWords = null; //Initializing null variable
+
 		
 		String filePath = "/mnt/test/words.txt";
 		
-//		UserFile file = null;
-//		
-//		Scanner wordsOfUser;
+		UserFile readFile = new UserFile();
 		
+		Scanner userFile = null;
+		
+		HashSet<String> noMatchWords;
+		
+
+	
 		
 		try {
 			
-			words = new Words();
 			
-			words.WordProcessor(words.fileIN);
+			userWords = new Words(filePath);
+			
+			userWords.WordProcessor();
+		
+			
+			userFile = new Scanner(readFile.getInputFileNameFromUser());
+			
 	
 		}
 		
@@ -28,16 +39,32 @@ public class Main {
 			
 		}
 		
+		catch(NullPointerException n) {
+			
+			System.out.println("You did not select anything!");
+		}
+	
 		finally {
 			
-//			System.out.println(words.hashSet.size());
+
 			
-			System.out.println("The program has run!");
+			System.out.println();
 			
 		}
-//		
-//		wordsOfUser =  file.userFile.useDelimiter("[^a-zA-Z]+");
-//		
-//		words = wordsOfUser.toString().toLowerCase();
+		 
+		
+		userFile.useDelimiter("[^a-zA-Z]+");
+
+		
+		noMatchWords = readFile.getNoMatchStrings(userFile, userWords);
+		
+		noMatchWords.forEach((elements) -> {
+			
+			System.out.println(elements);
+		
+		});
+		
+		
+	
 	}
 }

@@ -5,30 +5,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 
-public class Words extends UserFile{
+public class Words{
+
 	
-	public Scanner fileIN;
+	private Scanner fileIN;
 	
 	public HashSet<String> hashSet = new HashSet<>();//Created a HashSet object
 	
-	public Words(String filePath) throws FileNotFoundException{
+	public Words(String filePath) throws FileNotFoundException, NullPointerException{
 		
-		fileIN = new Scanner(new File(filePath));
 		
-	}
-	
-	public Words() throws FileNotFoundException {
-		
-		 fileIN = new Scanner(this.getInputFileNameFromUser());
+		this.fileIN = new Scanner(new File(filePath));
 		
 	}
 	
+
 	
-	public void WordProcessor(Scanner file) {
+	public void WordProcessor() {
 		
-		while(file.hasNext()){
+		while(this.fileIN.hasNext()){
 			
-			String tk = file.next();
+			String tk = this.fileIN.next();
 			
 			tk = tk.toLowerCase();
 			
@@ -37,7 +34,6 @@ public class Words extends UserFile{
 		}
 		
 	}
-	
 	
 	
 }
