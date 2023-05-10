@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 
-public class Words{
+public class Words extends UserFile{
 	
 	public Scanner fileIN;
 	
@@ -17,7 +17,12 @@ public class Words{
 		
 	}
 	
-	public Words(){}
+	public Words() throws FileNotFoundException {
+		
+		 fileIN = new Scanner(this.getInputFileNameFromUser());
+		
+	}
+	
 	
 	public void WordProcessor(Scanner file) {
 		
@@ -33,8 +38,6 @@ public class Words{
 		
 	}
 	
-	
-
 	
 	
 }
