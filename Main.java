@@ -6,18 +6,18 @@ public class Main extends UserFile{
 	
 	public static void main(String[] args){
 		
-		Words userWords = null; //Initializing null variable
+		Words userWords = null; // These are dictionary words
 
 		
-		String filePath = "/mnt/test/words.txt";
+		String filePath = "/mnt/test/words.txt"; // Default file path
 		
 		UserFile readFile = new UserFile();
 		
 		Scanner userFile = null;
 		
-		HashSet<String> noMatchWords;
+		HashSet<String> badWords;
 		
-
+		TreeSet<String> suggestions = new TreeSet<>();
 	
 		
 		try {
@@ -45,26 +45,35 @@ public class Main extends UserFile{
 		}
 	
 		finally {
-			
+
+			userFile.useDelimiter("[^a-zA-Z]+");
 
 			
-			System.out.println();
+			badWords = readFile.getNoMatchStrings(userFile, userWords);
+			
+			suggestions = FileCorrector.correctons("hashset", userWords.userDictionary);
+			
+			UserFile.printSingleLineReviseWords("hashset", suggestions);
+//			for(String aBadWord : badWords) {
+//				
+//				suggestions = FileCorrector.correctons(aBadWord, userWords.userDictionary);
+//				
+//				UserFile.printSingleLineReviseWords(aBadWord, suggestions);
+//				
+//			}
+			
 			
 		}
 		 
 		
-		userFile.useDelimiter("[^a-zA-Z]+");
+		
+		
+//		readFile.printBadWords(badWords);
+		
+		
+		
+		
 
-		
-		noMatchWords = readFile.getNoMatchStrings(userFile, userWords);
-		
-		noMatchWords.forEach((elements) -> {
-			
-			System.out.println(elements);
-		
-		});
-		
-		
 	
 	}
 }

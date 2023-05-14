@@ -1,5 +1,6 @@
 
 import java.util.Scanner;
+import java.util.TreeSet;
 import java.util.HashSet;
 import javax.swing.*;
 
@@ -34,7 +35,7 @@ public class UserFile {
 			
 			nowWord = nowWord.toLowerCase();
 			
-			if(!userWords.hashSet.contains(nowWord)) //Checks if the input string is in the hashSet
+			if(!userWords.userDictionary.contains(nowWord)) //Checks if the input string is in the hashSet
 			
 				badWords.add(nowWord);
 
@@ -44,7 +45,37 @@ public class UserFile {
 		
 	}
 	
+	public void printBadWords(HashSet<String> badWords){
+		
+		badWords.forEach(word -> {
+			System.out.println(word);
+		});
+		
+	}
 	
+	public static void printSingleLineReviseWords(String badWord, TreeSet<String> revisedWords) {
+		
+		System.out.print(badWord + ": ");
+		
+		if(revisedWords.isEmpty()) {
+			
+			System.out.print(": (no suggestions)");
+			
+		}else  {
+			
+			revisedWords.forEach(revised -> {
+				
+					
+				System.out.print(revised + ", ");
+				
+				
+				
+			});
+		}
+		
+		System.out.println();
+		
+	}
 	
 
 }

@@ -10,7 +10,7 @@ public class Words{
 	
 	private Scanner fileIN;
 	
-	public HashSet<String> hashSet = new HashSet<>();//Created a HashSet object
+	public HashSet<String> userDictionary = new HashSet<>();//Created a HashSet object
 	
 	public Words(String filePath) throws FileNotFoundException, NullPointerException{
 		
@@ -29,7 +29,7 @@ public class Words{
 			
 			tk = tk.toLowerCase();
 			
-			hashSet.add(tk);
+			userDictionary.add(tk);
 			
 		}
 		
