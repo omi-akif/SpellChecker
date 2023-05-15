@@ -2,6 +2,7 @@
 import java.util.Scanner;
 import java.util.TreeSet;
 import java.util.HashSet;
+import java.util.Iterator;
 import javax.swing.*;
 
 
@@ -9,6 +10,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class UserFile {
+
+//	static Iterator<String> revisedWordsIterator = new revisedWords.iterator();
+	
+	static Iterator<String> reviseWordsIterator;
 	
 	
 	private HashSet<String> badWords =  new HashSet<>(); 
@@ -55,6 +60,8 @@ public class UserFile {
 	
 	public static void printSingleLineReviseWords(String badWord, TreeSet<String> revisedWords) {
 		
+		reviseWordsIterator = revisedWords.iterator();
+		
 		System.out.print(badWord + ": ");
 		
 		if(revisedWords.isEmpty()) {
@@ -62,15 +69,23 @@ public class UserFile {
 			System.out.print(": (no suggestions)");
 			
 		}else  {
+		
 			
-			revisedWords.forEach(revised -> {
+			
+			String firstWord = reviseWordsIterator.next();
+			
+			System.out.print(firstWord);
+			
+			while(reviseWordsIterator.hasNext()) {
 				
-					
-				System.out.print(revised + ", ");
+				String aBadWord = reviseWordsIterator.next();
 				
+				System.out.print(", " + aBadWord);
 				
-				
-			});
+			}
+			
+			
+			
 		}
 		
 		System.out.println();

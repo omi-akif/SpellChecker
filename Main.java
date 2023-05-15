@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-//import java.io.File;
 import java.util.*;
 
 public class Main extends UserFile{
@@ -51,27 +50,20 @@ public class Main extends UserFile{
 			
 			badWords = readFile.getNoMatchStrings(userFile, userWords);
 			
-			suggestions = FileCorrector.correctons("hashset", userWords.userDictionary);
+
 			
-			UserFile.printSingleLineReviseWords("hashset", suggestions);
-//			for(String aBadWord : badWords) {
-//				
-//				suggestions = FileCorrector.correctons(aBadWord, userWords.userDictionary);
-//				
-//				UserFile.printSingleLineReviseWords(aBadWord, suggestions);
-//				
-//			}
+			
+			
+			for(String aBadWord : badWords) {
+				
+				suggestions = FileCorrector.correctons(aBadWord, userWords.userDictionary);
+				
+				UserFile.printSingleLineReviseWords(aBadWord, suggestions);
+				
+			}
 			
 			
 		}
-		 
-		
-		
-		
-//		readFile.printBadWords(badWords);
-		
-		
-		
 		
 
 	

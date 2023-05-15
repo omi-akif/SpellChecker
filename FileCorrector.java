@@ -2,27 +2,21 @@ import java.util.*;
 
 public class FileCorrector {
 
+
 	
-	//Need to use seperate variable for all revised words
-	
-	public static TreeSet<String> revisedWords = new TreeSet<>();
-	
-	protected static String aRevisedWord;
+	public static TreeSet<String> allRevisedWords = new TreeSet<>();
 	
 
 	
 	public static TreeSet<String> correctons(String badWord, HashSet<String> providedDictionary) {
 		
+		allRevisedWords.addAll(FileCorrector.correctorChangeLetter(badWord, providedDictionary));
+		allRevisedWords.addAll(FileCorrector.correctDeleteLetter(badWord, providedDictionary));
+		allRevisedWords.addAll(FileCorrector.correctInsertLetter(badWord, providedDictionary));
+		allRevisedWords.addAll(FileCorrector.correctSpacedLetter(badWord, providedDictionary));
+		allRevisedWords.addAll(FileCorrector.correctSwapLetter(badWord, providedDictionary));
 		
-		FileCorrector.correctorChangeLetter(badWord, providedDictionary);
-		FileCorrector.correctDeleteLetter(badWord, providedDictionary);
-		FileCorrector.correctInsertLetter(badWord, providedDictionary);
-		FileCorrector.correctSpacedLetter(badWord, providedDictionary);
-		FileCorrector.correctSwapLetter(badWord, providedDictionary);
-		
-		
-		
-		return revisedWords;
+		return allRevisedWords;
 		
 	}
 	
@@ -68,29 +62,25 @@ public class FileCorrector {
 		
 	}
 	
-	public static String insertSpace(int index, String badWord) throws StringIndexOutOfBoundsException{
+	public static String[] insertSpace(int index, String badWord) throws StringIndexOutOfBoundsException{
 		
-		badWord = badWord.substring(0, index) + " " + badWord.substring(index);
+		String[] seperatedWords = new String[2];
+		
+		seperatedWords[0] = badWord.substring(0, index);
+		
+		seperatedWords[1] = badWord.substring(index);
 				
-		return badWord;
+		return seperatedWords;
 		
 	}
 	
-	
-//	public static char seqCharInsertion(){
-//	
-//		char englishAlphabets[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-//	
-//		int i = 0;
-//		
-//		i++;
-//		
-//		return englishAlphabets[i];
-//	
-//	}
+
 	
 	public static TreeSet<String> correctorChangeLetter(String badWord ,HashSet<String> providedDictionary) {
 		
+		String aRevisedWord;
+		
+		TreeSet<String> revisedWords = new TreeSet<>();
 		
 		for(int i = 0; i <= badWord.length(); i++) {
 			
@@ -132,6 +122,12 @@ public class FileCorrector {
 	
 	public static TreeSet<String> correctDeleteLetter(String badWord, HashSet<String> providedDictionary){
 		
+		TreeSet<String> revisedWords = new TreeSet<>();
+		
+		String aRevisedWord;
+		
+		
+		
 		for(int i = 0; i <= badWord.length(); i++) {
 			
 			try {
@@ -165,6 +161,10 @@ public class FileCorrector {
 	
 	public static TreeSet<String> correctInsertLetter(String badWord, HashSet<String> providedDictionary){
 		
+		TreeSet<String> revisedWords = new TreeSet<>();
+		
+		String aRevisedWord;
+		
 		
 		for(int i = 0; i <= badWord.length();i++) {
 			
@@ -192,7 +192,6 @@ public class FileCorrector {
 				}
 				
 				
-				
 			}
 			
 		}
@@ -205,6 +204,10 @@ public class FileCorrector {
 	
 	public static TreeSet<String> correctSwapLetter(String badWord, HashSet<String> providedDictionary){
 		
+		
+		TreeSet<String> revisedWords = new TreeSet<>();
+		
+		String aRevisedWord;
 		
 		for(int i= 0; i <= badWord.length(); i++) {
 			try {
@@ -232,13 +235,16 @@ public class FileCorrector {
 			
 		}
 		
-		
 		return revisedWords;
 		
 	}
 	
 	
 	public static TreeSet<String> correctSpacedLetter(String badWord, HashSet<String> providedDictionary){
+		
+		TreeSet<String> revisedWords = new TreeSet<>();
+		
+		String[] aRevisedWord;
 		
 		for(int i = 0; i <= badWord.length(); i++) {
 			
@@ -247,16 +253,26 @@ public class FileCorrector {
 				
 				aRevisedWord = FileCorrector.insertSpace(i, badWord);
 				
-				if(providedDictionary.contains(aRevisedWord)) {
+				if(providedDictionary.contains(aRevisedWord[0]) && providedDictionary.contains(aRevisedWord[1])) {
 					
-					revisedWords.add(aRevisedWord);
+					revisedWords.add(aRevisedWord[0]);
+					revisedWords.add(aRevisedWord[1]);
+					
 					
 				}
-				else {
+				else if(providedDictionary.contains(aRevisedWord[1])) {
 					
+					revisedWords.add(aRevisedWord[1]);
+					
+				}
+				else if (providedDictionary.contains(aRevisedWord[0])) {
+					
+					revisedWords.add(aRevisedWord[1]);
+					
+				}else {
 					continue;
-					
 				}
+				
 				
 			}catch(StringIndexOutOfBoundsException e){
 				
